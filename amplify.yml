@@ -1,0 +1,18 @@
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - npm ci --prefix project
+    build:
+      commands:
+        - npm run --prefix project build
+        - esbuild --bundle project/server.js --outdir=.next/standalone --platform=node --external:aws-sdk
+        - cp -r project/public project/build .next/standalone
+  artifacts:
+    baseDirectory: .next
+    files:
+      - "**/*"
+  cache:
+    paths:
+      - node_modules/**/*
