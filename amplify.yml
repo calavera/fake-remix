@@ -3,6 +3,7 @@ frontend:
   phases:
     preBuild:
       commands:
+        - npm install -g esbuild
         - npm ci --prefix project
     build:
       commands:
